@@ -1,6 +1,6 @@
 {
   "name": "simple-validation",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple, chainable object validation",
   "main": "index.js",
   "directories": {
@@ -13,10 +13,9 @@
     "type": "git",
     "url": "git://github.com/matiasdoyle/simple-validation.git"
   },
-  "author": "Matias Doyle <hello@matiasdoyle.com",
+  "author": "Matias Doyle <hello@matiasdoyle.com>",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "gitHead": "58b314760b9272de6148cb6ce9b0ccea84ad9ee3",
   "devDependencies": {
     "mocha": "~1.9.0"
   }
