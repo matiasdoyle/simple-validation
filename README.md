@@ -1,6 +1,6 @@
 # simple-validation [![Build Status](https://travis-ci.org/matiasdoyle/simple-validation.png?branch=master)](https://travis-ci.org/matiasdoyle/simple-validation)
 
-A simple, chainable way of validating your objects.
+> Simple, chainable object validation
 
 ## Installation
 
