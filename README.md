@@ -12,7 +12,7 @@ Run with `--save` to save directly to the package.json.
 
 Chain the validators together and append `isValid()` to return a boolean of the validation result.
 
-	var Valid = require('simple-validator');
+	var Valid = require('simple-validation');
 
 	var obj = {
 		foo: 'bar',
