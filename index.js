@@ -24,7 +24,7 @@
     var valid = true;
 
     for (var i=0; i<keys.length; i++) {
-      if (!this._hasKey(keys[i])) { valid = false; }
+      if (!this._hasKey(keys[i])) valid = false;
     }
 
     this._valid.required = valid;
@@ -43,7 +43,7 @@
     var valid = false;
 
     for (var i=0; i<keys.length; i++) {
-      if (this._hasKey(keys[i])) { valid = true; }
+      if (this._hasKey(keys[i])) valid = true;
     }
     this._valid.has = valid;
     return this;
@@ -61,7 +61,7 @@
     var found = [];
 
     for (var i=0; i<keys.length; i++) {
-      if (this._hasKey(keys[i])) { found.push(keys[i]); }
+      if (this._hasKey(keys[i])) found.push(keys[i]);
     }
 
     this._valid.has_one = (found.length == 1);
