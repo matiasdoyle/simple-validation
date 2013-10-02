@@ -1,9 +1,9 @@
 (function() {
-  function Valid(obj) {
+  var Valid = function(obj) {
     if (!(this instanceof Valid))
       return new Valid(obj);
 
-    if (typeof(obj) !== 'object' || toString.call(obj) === '[object Array]')
+    if (typeof obj !== 'object' || this._isArray(obj))
       throw new TypeError('Expected object');
 
     this._obj = obj;
@@ -126,7 +126,7 @@
     for (var i in schema) {
       if (this._obj[i]) {
         if (schema[i] === 'array') {
-          if (!Array.isArray(this._obj[i]))
+          if (!this._isArray(this._obj[i]))
             return false;
         } else {
           if ((typeof(this._obj[i]) !== schema[i]))
@@ -138,11 +138,21 @@
     return true;
   };
 
+  /**
+   * Util function to check if the passed param is an Array.
+   *
+   * @param {Mixed} The parameter to check.
+   * @return {Boolean} True if parameter is true, false if not. 
+   */
+  Valid.prototype._isArray = function(param) {
+    return (Object.prototype.toString.call(param) === '[object Array]');
+  };
+
   // Expose module to Node.js or the browser.
   if (typeof module != 'undefined' && module.exports) {
     module.exports = Valid;
   } else {
-    this.Valid = Valid;
+    window.Valid = Valid;
   }
 
 }).call(this);
