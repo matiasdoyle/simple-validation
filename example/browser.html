@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>simple-validation - Browser example</title>
+</head>
+<body>
+
+<p>Open your console.</p>
+
+
+<script src="../simple-validation.min.js"></script>
+<script>
+  var obj = {
+    foo: 'bar',
+    baz: [ 'hello', 'world' ]
+  };
+
+  var valid = Valid(obj)
+    .has([ 'foo', 'baz' ])
+    .values({ foo: 'string', baz: 'array' })
+    .isValid();
+
+  console.log('Object is valid:', valid);
+</script>
+</body>
+</html>
