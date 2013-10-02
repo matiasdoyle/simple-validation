@@ -1,10 +1,9 @@
-
 (function() {
   function Valid(obj) {
     if (!(this instanceof Valid))
       return new Valid(obj);
 
-    if (typeof(obj) !== 'object' || Array.isArray(obj))
+    if (typeof(obj) !== 'object' || toString.call(obj) === '[object Array]')
       throw new TypeError('Expected object');
 
     this._obj = obj;
@@ -12,17 +11,6 @@
 
     return this;
   }
-
-  /**
-   * The 'static' maps for the different validations of keys.
-   *
-   * @type {Object}
-   */
-  var TYPES = {
-    REQUIRED: 'every',
-    HAS: 'some',
-    HAS_ONE: 'map'
-  };
 
   /**
    * Checks that the array of keys passed are present in the object.
@@ -33,7 +21,13 @@
    * @return {Object} this
    */
   Valid.prototype.required = function(keys) {
-    this._valid.required = this._keys(keys, TYPES.REQUIRED);
+    var valid = true;
+
+    for (var i=0; i<keys.length; i++) {
+      if (!this._hasKey(keys[i])) { valid = false; }
+    }
+
+    this._valid.required = valid;
     return this;
   };
 
@@ -46,7 +40,12 @@
    * @return {Object} this
    */
   Valid.prototype.has = function(keys) {
-    this._valid.has = this._keys(keys, TYPES.HAS);
+    var valid = false;
+
+    for (var i=0; i<keys.length; i++) {
+      if (this._hasKey(keys[i])) { valid = true; }
+    }
+    this._valid.has = valid;
     return this;
   };
 
@@ -59,7 +58,13 @@
    * @return {Object} this
    */
   Valid.prototype.hasOne = function(keys) {
-    this._valid.has_one = (this._keys(keys, TYPES.HAS_ONE).length === 1);
+    var found = [];
+
+    for (var i=0; i<keys.length; i++) {
+      if (this._hasKey(keys[i])) { found.push(keys[i]); }
+    }
+
+    this._valid.has_one = (found.length == 1);
     return this;
   };
 
@@ -101,18 +106,13 @@
   };
 
   /**
-   * Checks that the keys are present in the object.
+   * Check the object contains the key.
    *
-   * @param {Array} keys The keys to check
-   * @param {Number} type
-   * @return {Mixed}
+   * @param {String} key The key to check is present.
+   * @return {Boolean} True if the key exists, false if not.
    */
-  Valid.prototype._keys = function(keys, type) {
-    var self = this;
-
-    return keys[type](function(key) {
-      return (self._obj[key] !== undefined);
-    });
+  Valid.prototype._hasKey = function(key) {
+    return this._obj[key] !== undefined;
   };
 
   /**
