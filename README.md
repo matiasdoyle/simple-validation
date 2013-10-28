@@ -26,6 +26,9 @@ Chain the validators together and append `isValid()` to return a boolean of the 
 
 	console.log(valid); // true
 
+## Browser support
+
+The module has support for running in the browser. It has been tested in IE6=<, Firefox, Chrome and Opera (12, Blink). To use the module load the `simple-validation.min.js` file and use it as you would on the server.
 
 ## API
 
