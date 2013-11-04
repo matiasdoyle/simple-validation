@@ -1,6 +1,6 @@
 {
   "name": "simple-validation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple, chainable object validation",
   "main": "index.js",
   "directories": {
