@@ -5,8 +5,7 @@
 </head>
 <body>
 
-<p>Open your console.</p>
-
+<p>Open the console.</p>
 
 <script src="../simple-validation.min.js"></script>
 <script>
@@ -20,7 +19,10 @@
     .values({ foo: 'string', baz: 'array' })
     .isValid();
 
-  console.log('Object is valid:', valid);
+  console.log('Validating object:', obj);
+  console.log('We expect that it has the properties: foo, bar');
+  console.log('and foo value has type string, baz value is array');
+  console.log('Result of validating object:', valid);
 </script>
 </body>
 </html>
