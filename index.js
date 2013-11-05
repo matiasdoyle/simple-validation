@@ -108,11 +108,25 @@
   /**
    * Check the object contains the key.
    *
-   * @param {String} key The key to check is present.
+   * @param {String|Array} key The key to check is present. To check nested objects either pass
+   *                           a string in dot notation (key = 'foo.bar') or an array ['foo', 'bar'].
    * @return {Boolean} True if the key exists, false if not.
    */
-  Valid.prototype._hasKey = function(key) {
-    return this._obj[key] !== undefined;
+  Valid.prototype._hasKey = function(key, obj) {
+    var cur;
+
+    if (!this._isArray(key)) {
+      key = key.split('.');
+    }
+
+    cur = key.shift();
+    obj = obj || this._obj;
+
+    if (!obj.hasOwnProperty(cur)) return false;
+    if (typeof obj[cur] == 'object' && key.length > 0)
+      return this._hasKey(key, obj[cur]);
+
+    return (key.length === 0);
   };
 
   /**

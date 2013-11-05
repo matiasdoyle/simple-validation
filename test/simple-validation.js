@@ -5,7 +5,10 @@ var obj = {
   foo: 'bar',
   bar: 'foo',
   'test': true,
-  baz: ['hello', 'world']
+  baz: ['hello', 'world'],
+  nested: {
+    hello: 'world'
+  }
 };
 
 describe('Valid', function() {
@@ -46,19 +49,27 @@ describe('Valid', function() {
       var v = Valid(obj).required(['foo', 'test', 'hello']);
       assert(!v._valid.required);
     });
+
+    it('should support nested objects', function() {
+      var v = Valid(obj).required(['foo', 'nested.hello']);
+      assert(v._valid.required);
+    });
   });
 
   describe('.has()', function() {
     it('should set the _valid.has to true when the object includes one of the keys in the passed array', function() {
       var v = Valid(obj).has(['foo', 'test', 'hello']);
       assert(v._valid.has);
-      assert.equal(v._valid.required, undefined);
     });
 
     it('should set the _valid.has to false when the object does not include one of the keys in the passed array', function() {
       var v = Valid(obj).has(['hello', 'wooo']);
       assert(!v._valid.has);
-      assert.equal(v._valid.required, undefined);
+    });
+
+    it('should support nested objects', function() {
+      var v = Valid(obj).has(['foo', 'nested.hello']);
+      assert(v._valid.has);
     });
   });
 
@@ -71,6 +82,11 @@ describe('Valid', function() {
     it('should set the _valid.has_one to false when more of the passed keys are present in the object', function() {
       var v = Valid(obj).hasOne(['foo', 'test']);
       assert(!v._valid.has_one);
+    });
+
+    it('should support nested objects', function() {
+      var v = Valid(obj).hasOne(['nested.hello', 'blimp']);
+      assert(v._valid.has_one);
     });
   });
 

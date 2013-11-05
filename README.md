@@ -89,6 +89,21 @@ Usage:
 	var valid = Valid({ foo: true, bar: false }).required(['foo', 'bar']).isValid();
 	console.log(valid); // true
 
+### Nested objects
+
+The module has basic support for nested objects. All functions but `.values` have support for nested objects using a string with dot notation or an array.
+
+Example:
+
+	var valid = Valid({
+	  foo: 'bar',
+	  nested: {
+	  	hello: 'you'
+	  }
+	}).required(['nested.hello']).isValid();
+
+	console.log(valid); // true
+
 ## Licence
 
 MIT
